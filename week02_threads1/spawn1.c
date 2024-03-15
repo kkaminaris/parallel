@@ -4,6 +4,18 @@
 #include <pthread.h>
 #include "timer.c"
 
+// int n = 1000;
+// int p = 4;
+// int chunk = n/p; //250
+//
+// int id; 0,1,2,3
+//
+// int start = id*chucnk;
+// int end = start + chunk;
+//
+// id = 0 -> start = 0, end = 250
+// id = 1 -> start = 250, end = 500
+
 void *func(void *arg)
 {
 	pthread_t me = pthread_self();
