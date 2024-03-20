@@ -3,9 +3,10 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#include "barrier.c"
 
 #if defined(__APPLE__)
-//#warning "Barrier are not supported on OSX, using a custom implementation"
+#warning "Barrier are not supported on OSX, using a custom implementation"
 #include "barrier.h"
 #include "barrier.c"
 
@@ -15,14 +16,14 @@
 
 #endif
 
-pthread_barrier_t bar;
+barrier_t bar;
 
 void *func(void *arg)
 {
 	int id = *((int *)arg);
 	printf("Hello world from thread %d!\n", id);
 
-	//pthread_barrier_wait(&bar);
+	pthread_barrier_wait(&bar);
 	sleep(id);
 
 	printf("Goodbye world from thread %d!\n", id);
