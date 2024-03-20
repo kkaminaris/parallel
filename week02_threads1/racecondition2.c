@@ -11,13 +11,21 @@
 
 long counter = 0;
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 // This code is extremely simple, so let's disable compiler optimizations (GCC)
 #pragma GCC push_options
 #pragma GCC optimize ("O0")
 void *func(void *arg)
 {
-	for (long i = 0; i < NITERS; i++)
-		counter++;
+    long temp = 0;
+    for (long i = 0; i < NITERS; i++) {
+        temp++;
+    }
+
+    pthread_mutex_lock(&mutex);
+    counter += temp;
+    pthread_mutex_unlock(&mutex);
 
 	return NULL;
 }

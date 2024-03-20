@@ -9,8 +9,8 @@ void *work(void *arg)
 {
 	pthread_t me = pthread_self();
 	printf("Hello world from thread %lx!\n", (long)me);
-    sleep(5);
     x = 20;
+    printf("i=%lx\n", (long)arg);
     printf("Goodbye from thread\n");
 
 	return NULL;
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 
 	pthread_create(&thread, NULL, work,(void *) i);
     printf("Main: waiting...\n");
+    sleep(2);
     x = 30;
 	pthread_join(thread, NULL);
 

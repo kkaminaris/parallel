@@ -18,20 +18,23 @@
 
 void *func(void *arg)
 {
-	pthread_t me = pthread_self();
+	long me = *(long *)arg;
 	printf("Hello world from thread %lx!\n", (long)me);
 
-	sleep(1);
+	sleep(me);
+    printf("Thread %lx is exiting!\n", (long)me);
 	return NULL;
 }
 
 int main(int argc, char * argv[])
 {
 	pthread_t id[4];
+    long tmp[4];
 
     double t0 = get_wtime();
 	for (long i = 0; i < 4; i++)   {
-		pthread_create(&id[i], NULL, func, NULL);
+        tmp[i] = i;
+		pthread_create(&id[i], NULL, func, (void *) &tmp[i]);
 	}
 
 	for (long i = 0; i < 4; i++)   {
